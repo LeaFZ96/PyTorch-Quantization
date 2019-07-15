@@ -1,12 +1,15 @@
 import torch
+import torch.nn as nn
+from torch.utils.data import Dataset, DataLoader
 import torchvision
 import torchvision.transforms as transforms
+import torch.distributed as dist
 import numpy as np
-import matplotlib.pyplot as plt
-import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import time
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 transform = transforms.Compose(
     [transforms.ToTensor(),
@@ -24,12 +27,6 @@ testloader = torch.utils.data.DataLoader(testset, batch_size=4,
 
 classes = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
-
-def imshow(img):
-    img = img / 2 + 0.5
-    npimg = img.numpy()
-    plt.imshow(np.transpose(npimg, (1, 2, 0)))
-    plt.show()
 
 class Net(nn.Module):
     def __init__(self):
@@ -50,23 +47,25 @@ class Net(nn.Module):
         x = self.fc3(x)
         return x
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
 net = Net()
 net.to(device)
 
+dist.init_process_group(backend="nccl")
+net = torch.nn.parallel.DistributedDataParallel(net)
+
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
+#optimizer = nn.DataParallel(optimizer)
 
 start_time = time.time()
 print("start train")
 
-for epoch in range(2):  # loop over the dataset multiple times
+for epoch in range(3):  # loop over the dataset multiple times
 
     running_loss = 0.0
     for i, data in enumerate(trainloader, 0):
         # get the inputs; data is a list of [inputs, labels]
-        inputs, labels = data[0].to(device), data[1].to(device)
+        inputs, labels = data[0].cuda(), data[1].cuda()
 
         # zero the parameter gradients
         optimizer.zero_grad()
@@ -103,3 +102,6 @@ with torch.no_grad():
 for i in range(10):
     print('Accuracy of %5s : %2d %%' % (
         classes[i], 100 * class_correct[i] / class_total[i]))
+
+
+

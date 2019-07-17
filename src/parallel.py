@@ -18,12 +18,12 @@ transform = transforms.Compose(
 
 trainset = torchvision.datasets.CIFAR10(root='./data', train=True,
                                         download=True, transform=transform)
-trainloader = torch.utils.data.DataLoader(trainset, batch_size=4,
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=800,
                                           shuffle=True, num_workers=2)
 
 testset = torchvision.datasets.CIFAR10(root='./data', train=False,
                                        download=True, transform=transform)
-testloader = torch.utils.data.DataLoader(testset, batch_size=4,
+testloader = torch.utils.data.DataLoader(testset, batch_size=100,
                                          shuffle=False, num_workers=2)
 
 classes = ('plane', 'car', 'bird', 'cat',
@@ -58,12 +58,13 @@ if torch.cuda.device_count() > 1:
 #net.to(device)
 
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
+optimizer = optim.SGD(net.parameters(), lr=0.03, momentum=0.9)
 
 start_time = time.time()
+last_time = start_time
 print("start train")
 
-for epoch in range(3):  # loop over the dataset multiple times
+for epoch in range(10):  # loop over the dataset multiple times
 
     running_loss = 0.0
     for i, data in enumerate(trainloader, 0):
@@ -81,11 +82,13 @@ for epoch in range(3):  # loop over the dataset multiple times
 
         # print statistics
         running_loss += loss.item()
-        if i % 2000 == 1999:    # print every 2000 mini-batches
-            print('[%d, %5d] loss: %.3f time used: %.3f' %
-                  (epoch + 1, i + 1, running_loss / 2000, time.time() - start_time))
+        if i % 10 == 9:    # print every 2000 mini-batches
+            print('epoch: %d\t iter: %5d\t loss: %.3f\t time used: %.3f\t' %
+                  (epoch + 1, i + 1, running_loss / 10, time.time() - last_time))
+            last_time = time.time()
             running_loss = 0.0
 
+print('total time: %.3f' % (time.time() - start_time))
 print('Finished Training')
 
 class_correct = list(0. for i in range(10))
@@ -102,9 +105,13 @@ with torch.no_grad():
             class_total[label] += 1
 
 
+total = 0
+correct = 0
 for i in range(10):
     print('Accuracy of %5s : %2d %%' % (
         classes[i], 100 * class_correct[i] / class_total[i]))
+    total += class_total[i]
+    correct += class_correct[i]
+    
 
-
-
+print('Total accuracy: %2d %%' % (100 * correct / total))

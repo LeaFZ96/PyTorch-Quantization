@@ -18,18 +18,21 @@ transform = transforms.Compose(
 trainset = torchvision.datasets.CIFAR10(root='./data', train=True,
                                         download=True, transform=transform)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=400,
-                                          shuffle=True, num_workers=2)
+                                          shuffle=True, num_workers=0)
 
 testset = torchvision.datasets.CIFAR10(root='./data', train=False,
                                        download=True, transform=transform)
 testloader = torch.utils.data.DataLoader(testset, batch_size=80,
-                                         shuffle=False, num_workers=2)
+                                         shuffle=False, num_workers=0)
 
 classes = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
-net = models.vgg16()
+net = models.vgg11()
 
+
+
+print('device: ', device)
 net.to(device)
 
 criterion = nn.CrossEntropyLoss()
@@ -39,29 +42,56 @@ start_time = time.time()
 last_time = start_time
 print("start train")
 
-for epoch in range(40):  # loop over the dataset multiple times
+for epoch in range(10):  # loop over the dataset multiple times
 
     running_loss = 0.0
+    read_time = 0.0
+    forward_time = 0.0
+    backward_time = 0.0
+    optimize_time = 0.0
+    time_0 = time.time()
     for i, data in enumerate(trainloader, 0):
         # get the inputs; data is a list of [inputs, labels]
         inputs, labels = data[0].cuda(), data[1].cuda()
 
+        print("input size: ", inputs.size())
+
         # zero the parameter gradients
+        time_1 = time.time()
         optimizer.zero_grad()
+
 
         # forward + backward + optimize
         outputs = net(inputs)
+
+        time_2 = time.time()
         loss = criterion(outputs, labels)
         loss.backward()
+
+        time_3 = time.time()
         optimizer.step()
+
+        time_4 = time.time()
+
+        read_time += time_1 - time_0
+        forward_time += time_2 - time_1
+        backward_time += time_3 - time_2
+        optimize_time += time_4 - time_3
 
         # print statistics
         running_loss += loss.item()
         if i % 20 == 19:    # print every 2000 mini-batches
-            print('epoch: %d\t iter: %5d\t loss: %.3f\t time used: %.3f\t' %
-                  (epoch + 1, i + 1, running_loss / 20, time.time() - last_time))
+            time_5 = time.time()
+            print('epoch: %d\t iter: %5d\t loss: %.3f\t total_t: %.3f\t read_t: %.4f\t forward_t: %.4f\t backward_t: %.4f\t optimize_t: %.4f\t' %
+                  (epoch + 1, i + 1, running_loss / 20, time.time() - last_time, read_time, forward_time, backward_time, optimize_time))
+            time_6 = time.time()
             last_time = time.time()
             running_loss = 0.0
+            read_time = 0.0
+            forward_time = 0.0
+            backward_time = 0.0
+            optimize_time = 0.0
+        time_0 = time.time()
 
 print('total time: %.3f' % (time.time() - start_time))
 print('Finished Training')

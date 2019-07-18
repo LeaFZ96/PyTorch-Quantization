@@ -128,7 +128,9 @@ Then, the script can be run correctly. But it's too slow in the docker.
 
 ### Host
 
-**Single GPU**
+#### Single GPU
+
+**256 batch size**
 
 ```bash
 $ python main.py -a resnet50 --epochs 1 --gpu 0 ../../imagenet
@@ -136,7 +138,11 @@ $ python main.py -a resnet50 --epochs 1 --gpu 0 ../../imagenet
 
 Parameters: `batch-size: 256`, `workers: 4`, `lr: 0.01`
 
-Result in the `log/resnet_s_256.log`
+Result: `Acc@1 16.016 Acc@5 36.080`, `Time 0.742 @5005`
+
+Details in `log/resnet_s_256.log` 
+
+**128 batch size**
 
 ```bash
 $ python main.py -a resnet50 --epochs 1 --batch-size 128 --gpu 0 ../../imagenet
@@ -144,9 +150,13 @@ $ python main.py -a resnet50 --epochs 1 --batch-size 128 --gpu 0 ../../imagenet
 
 Parameters: `batch-size: 128`, `workers: 4`, `lr: 0.01`
 
-Result in the `log/resnet_s_128.log`
+Result: `Acc@1 16.528 Acc@5 36.420`, `Time 0.376 @10010`
 
-**Data Parallel**
+Details in `log/resnet_s_128.log` 
+
+#### Data Parallel
+
+**256 batch size**
 
 ```bash
 $ python main.py -a resnet50 --epochs 1 ../../imagenet
@@ -154,7 +164,11 @@ $ python main.py -a resnet50 --epochs 1 ../../imagenet
 
 Parameters: `batch-size: 256`, `workers: 16`, `lr: 0.01`
 
-Result in `log/resnet_p_256.log` 
+Result: `Acc@1 15.004 Acc@5 33.876`, `Time 0.378 @5005`
+
+Details in `log/resnet_p_256.log` 
+
+**1024 batch size**
 
 ```bash
 $ python main.py -a resnet50 --epochs 1 --batch-size 1024 --workers 16 ../../imagenet
@@ -162,17 +176,13 @@ $ python main.py -a resnet50 --epochs 1 --batch-size 1024 --workers 16 ../../ima
 
 Parameters: `batch-size: 1024`, `workers: 16`, `lr: 0.01`
 
-Result in `log/resnet_p_1024.log`
+Result: `Acc@1 10.772 Acc@5 26.926`, `Time 0.802 @1252`
 
-**Distributed Data Parallel (Single node, 4 GPUs)**
+Details in `log/resnet_p_1024.log` 
 
-```bash
-$ python main.py -a resnet50 --epochs 1 --batch-size 1024 --workers 16 --dist-url 'tcp://127.0.0.1:2345' --dist-backend 'nccl' --multiprocessing-distributed --world-size 1 --rank 0 ../../imagenet
-```
+#### Distributed Data Parallel (Single node, 4 GPUs)
 
-Parameters: `batch-size: 1024`, `workers: 16`, `lr: 0.01`
-
-Result in `log/resnet_d_1024.log`
+**256 batch size**
 
 ```bash
 $ python main.py -a resnet50 --epochs 1 --batch-size 256 --dist-url 'tcp://127.0.0.1:2345' --dist-backend 'nccl' --multiprocessing-distributed --world-size 1 --rank 0 ../../imagenet
@@ -180,15 +190,29 @@ $ python main.py -a resnet50 --epochs 1 --batch-size 256 --dist-url 'tcp://127.0
 
 Parameters: `batch-size: 256`, `workers: 4`, `lr: 0.01`
 
-Result in `log/resnet_d_256.log`
+Result: `Acc@1 14.990 Acc@5 33.922`, `Time 0.396 @5005`
 
-####Some thoughts about the results
+Details in `log/resnet_d_256.log` 
+
+**1024 batch size**
+
+```bash
+$ python main.py -a resnet50 --epochs 1 --batch-size 1024 --workers 16 --dist-url 'tcp://127.0.0.1:2345' --dist-backend 'nccl' --multiprocessing-distributed --world-size 1 --rank 0 ../../imagenet
+```
+
+Parameters: `batch-size: 1024`, `workers: 16`, `lr: 0.01`
+
+Result: `Acc@1 11.296 Acc@5 27.850`, `Time 0.794 @1252`
+
+Details in `log/resnet_d_1024.log` 
+
+#### Some thoughts about the results
 
 When I set a small batch size $a$ and a number of iteration $b$ , versus a large batch size $c$ and a number of iteration $d$ where $ab = cd$ . I find that after being trained for a same number of ephoc, the model with small batch size always performs better and the model with large batch size could be trained faster. I found a paper [On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima](https://arxiv.org/abs/1609.04836) and a question [Tradeoff batch size vs. number of iterations to train a neural network](https://stats.stackexchange.com/questions/164876/tradeoff-batch-size-vs-number-of-iterations-to-train-a-neural-network) about that.
 
 The above thoughts of the batch size are about the training on a single GPU. As for single GPU versus multiple GPUs, there are something should be noticed. The following picture is about how `DataParallel` works. 
 
-![dataparallel](img/e153c9fa07a2688c77fc1d7a572f26d12828528d_2_275x500.png)
+![dataparallel](./img/e153c9fa07a2688c77fc1d7a572f26d12828528d_2_275x500.png)
 
 The summary of each step is:
 
@@ -208,4 +232,179 @@ $$
 It's just a speedup of `DataParallel` implementation by PyTorch in **4** GPUs.
 
 ### NVIDIA Docker
+
+**Single GPU**
+
+```bash
+$ sudo nvidia-docker run --ipc=host --rm -v /home:/workspace nvcr.io/nvidia/pytorch:19.06-py3 python /workspace/leafz/PyTorch-Learning/imagenet_src/main.py -a resnet50 --epochs 1 --gpu 0 /workspace/leafz/imagenet
+```
+
+Parameters: `batch-size: 256`, `workers: 4`, `lr: 0.01`
+
+Result: `Acc@1 14.856 Acc@5 34.670`, `Time 0.703 @5005`
+
+Details in `log/resnet_s_256_docker.log` 
+
+**Data Parallel**
+
+```bash
+$ sudo nvidia-docker run --ipc=host --rm -v /home:/workspace nvcr.io/nvidia/pytorch:19.06-py3 python /workspace/leafz/PyTorch-Learning/imagenet_src/main.py -a resnet50 --epochs 1 /workspace/leafz/imagenet
+```
+
+Parameters: `batch-size: 256`, `workers: 4`, `lr: 0.01`
+
+Result: `Acc@1 17.406 Acc@5 38.240`, `Time 0.284 @5005`
+
+Details in `log/resnet_p_256_docker.log` 
+
+**Distributed Data Parallel (Single node, 4 GPUs)**
+
+```bash
+$ sudo nvidia-docker run --ipc=host --rm -v /home:/workspace nvcr.io/nvidia/pytorch:19.06-py3 python /workspace/leafz/PyTorch-Learning/imagenet_src/main.py -a resnet50 --epochs 1 --dist-url 'tcp://127.0.0.1:2345' --dist-backend 'nccl' --multiprocessing-distributed --world-size 1 --rank 0 /workspace/leafz/imagenet
+```
+
+Parameters: `batch-size: 256`, `workers: 4`, `lr: 0.01`
+
+Result: `Acc@1 18.440 Acc@5 40.55`, `Time 0.307 @5005`
+
+Details in `log/resnet_d_256_docker.log` 
+
+#### Result Analyze
+
+Because the version of cuDNN in the host is 7.3 versus the version 7.6 in the docker, the training speed has been significantly imporved.
+
+Same as Host, the parallel speedup between single GPU and 4 GPUs in data parallel is:
+$$
+speedup_p = \frac{0.703}{0.284} = 2.475
+$$
+and the speedup between single GPU and 4 GPUs in distributed data parallel is:
+$$
+speedup_d = \frac{0.703}{0.307} = 2.290
+$$
+
+## Mixed Precision
+
+Test script from [Mixed Precision ImageNet Training in PyTorch](https://github.com/NVIDIA/apex/tree/master/examples/imagenet)
+
+It provides four options to the precision:
+
+- `—-opt-level O0`: Pure FP32 training
+- `—-opt-level O1`: Conservative mixed precision. Insert automatic casts around Pytorch functions and Tensor methods
+- `—-opt-level O2`: Fast mixed precision, FP16 training with FP32 batchnorm and FP32 master weights
+- `—-opt-level O3`: Pure FP16 training
+
+It supports single GPU training and distributed data parallel training. The following trainings are all in the NVIDIA docker.
+
+### Single GPU
+
+Enter the PyTorch container:
+
+```bash
+$ sudo nvidia-docker run -it --ipc=host --rm -v /home:/workspace nvcr.io/nvidia/pytorch:19.06-py3
+
+$ cd leafz/PyTorch-Learning/mixed_precision
+```
+
+Use `CUDA_VISIBLE_DEVICES` in each docker container to specify which GPU to use
+
+```bash
+$ export CUDA_VISIBLE_DEVICES=1, 2 		# Use GPU 1 & 2
+```
+
+So I can open four container to run four single GPU training at the same time.
+
+#### `--opt-level O0`
+
+```bash
+$ python main_amp.py -a resnet50 --b 256 --epochs 1 --workers 4 --opt-level O0 ./
+```
+
+Result: `Prec@1 7.822 Prec@5 20.642`, `Time 0.688 @5005`, `Speed 372.098`
+
+#### `--opt-level O1`
+
+```bash
+$ python main_amp.py -a resnet50 --b 256 --epochs 1 --workers 4 --opt-level O1 ./
+```
+
+Result: `Prec@1 9.118 Prec@5 24.084`, `Time 0.324 @5005`, `Speed 791.178`
+
+#### `--opt-level O2`
+
+```bash
+$ python main_amp.py -a resnet50 --b 256 --epochs 1 --workers 4 --opt-level O2 ./
+```
+
+Result: `Prec@1 8.282 Prec@5 22.202`, `Time 0.321 @5005`, `Speed 796.925`
+
+#### `--opt-level O3` & `--keep-batchnorm-fp32 True`
+
+```bash
+$ python main_amp.py -a resnet50 --b 256 --epochs 1 --workers 4 --opt-level O3 --keep-batchnorm-fp32 True ./
+```
+
+Result: `Prec@1 9.126 Prec@5 24.084`, `Time 0.311 @5005`, `Speed 824.450`
+
+#### Result Analyze
+
+The single GPU speedup by mixed precision as follows:
+$$
+speedup = \frac{0.688}{0.311} = 2.212
+$$
+There is small difference between the last three options. And the result of speedup is very significant.
+
+### Distributed training (4 GPUs)
+
+#### `--opt-level O0`
+
+```bash
+$ python -m torch.distributed.launch --nproc_per_node=4 main_amp.py -a resnet50 --b 256 --epochs 1 --workers 4 --opt-level O0 ./
+```
+
+Result: `Prec@1 6.944 Prec@5 18.470`, `Time 0.706 @1252`, `Speed 1450.651`
+
+#### `--opt-level O1`
+
+```bash
+$ python -m torch.distributed.launch --nproc_per_node=4 main_amp.py -a resnet50 --b 256 --epochs 1 --workers 4 --opt-level O1 ./
+```
+
+Result: `Prec@1 7.280 Prec@5 19.612`, `Time 0.337 @1252`, `Speed 3039.582`
+
+#### `--opt-level O2`
+
+```bash
+$ python -m torch.distributed.launch --nproc_per_node=4 main_amp.py -a resnet50 --b 256 --epochs 1 --workers 4 --opt-level O2 ./
+```
+
+Result: `Prec@1 7.190 Prec@5 18.744`, `Time 0.334 @1252`, `Speed 3063.879`
+
+#### `--opt-level O3` & `--keep-batchnorm-fp32 True`
+
+```bash
+$ python -m torch.distributed.launch --nproc_per_node=4 main_amp.py -a resnet50 --b 256 --epochs 1 --workers 4 --opt-level O3 --keep-batchnorm-fp32 True ./
+```
+
+Result: `Prec@1 6.806 Prec@5 18.942`, `Time 0.323 @1252`, `Speed 3172.385`
+
+#### Result Analyze
+
+As for multiple GPUs, speedup by mixed precision as follows:
+$$
+speedup = \frac{3172.385}{1450.651} = 2.187
+$$
+
+The distributed training used `apex.parallel.DistributedDataParallel` rather than `torch.nn.parallel.DistributedDataparallel`. It seems that the speedup of parallelism of `apex` is much better than `torch.nn.` . The speedup roughly equals the number of GPU. It's amazing!
+
+The preformance of training is not as good as the fomal one, because the apex uses the strategy of warm up for adjusting learning rate. The learning rate for apex start from a very small value rather than 0.1 in torch official example.
+
+## Test Speed
+
+### Run apex
+
+50 epoch
+
+```bash
+sudo nvidia-docker run -d --ipc=host -v /home:/workspace nvcr.io/nvidia/pytorch:19.06-py3 bash -c "cd leafz/PyTorch-Learning/mixed_precision && python -u -m torch.distributed.launch --nproc_per_node=4 main_amp.py -a resnet50 --b 256 --epochs 50 --workers 4 --opt-level O3 --keep-batchnorm-fp32 True ./"
+```
 

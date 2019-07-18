@@ -1,3 +1,5 @@
 virenv/
 src/data/
 .vscode/
+imagenet_src/model_best.pth.tar
+imagenet_src/checkpoint.pth.tar

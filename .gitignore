@@ -3,3 +3,5 @@ src/data/
 .vscode/
 imagenet_src/model_best.pth.tar
 imagenet_src/checkpoint.pth.tar
+mixed_precision/checkpoint.pth.tar
+mixed_precision/model_best.pth.tar

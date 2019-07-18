@@ -1,0 +1,187 @@
+=> creating model 'resnet50'
+=> creating model 'resnet50'
+=> creating model 'resnet50'
+=> creating model 'resnet50'
+Selected optimization level O3:  Pure FP16 training.
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O3
+cast_model_type        : torch.float16
+patch_torch_functions  : False
+keep_batchnorm_fp32    : False
+master_weights         : False
+loss_scale             : 1.0
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O3
+cast_model_type        : torch.float16
+patch_torch_functions  : False
+keep_batchnorm_fp32    : True
+master_weights         : False
+loss_scale             : 1.0
+/opt/conda/lib/python3.6/site-packages/torch/distributed/distributed_c10d.py:100: UserWarning: torch.distributed.reduce_op is deprecated, please use torch.distributed.ReduceOp instead
+  warnings.warn("torch.distributed.reduce_op is deprecated, please use "
+/opt/conda/lib/python3.6/site-packages/torch/distributed/distributed_c10d.py:100: UserWarning: torch.distributed.reduce_op is deprecated, please use torch.distributed.ReduceOp instead
+  warnings.warn("torch.distributed.reduce_op is deprecated, please use "
+/opt/conda/lib/python3.6/site-packages/torch/distributed/distributed_c10d.py:100: UserWarning: torch.distributed.reduce_op is deprecated, please use torch.distributed.ReduceOp instead
+  warnings.warn("torch.distributed.reduce_op is deprecated, please use "
+/opt/conda/lib/python3.6/site-packages/torch/distributed/distributed_c10d.py:100: UserWarning: torch.distributed.reduce_op is deprecated, please use torch.distributed.ReduceOp instead
+  warnings.warn("torch.distributed.reduce_op is deprecated, please use "
+Epoch: [0][10/1252]	Time 1.551 (1.551)	Speed 660.318 (660.318)	Loss 7.0861821175 (7.0862)	Prec@1 0.195 (0.195)	Prec@5 0.684 (0.684)
+Epoch: [0][20/1252]	Time 0.314 (0.932)	Speed 3264.369 (1098.443)	Loss 7.0159673691 (7.0511)	Prec@1 0.098 (0.146)	Prec@5 0.488 (0.586)
+Epoch: [0][30/1252]	Time 0.312 (0.726)	Speed 3277.024 (1411.157)	Loss 6.9764342308 (7.0262)	Prec@1 0.000 (0.098)	Prec@5 0.488 (0.553)
+Epoch: [0][40/1252]	Time 0.312 (0.622)	Speed 3278.641 (1645.468)	Loss 6.9432864189 (7.0055)	Prec@1 0.000 (0.073)	Prec@5 0.488 (0.537)
+Epoch: [0][50/1252]	Time 0.312 (0.560)	Speed 3278.464 (1827.526)	Loss 6.9107108116 (6.9865)	Prec@1 0.879 (0.234)	Prec@5 1.465 (0.723)
+Epoch: [0][60/1252]	Time 0.314 (0.519)	Speed 3259.730 (1971.924)	Loss 6.9237651825 (6.9761)	Prec@1 0.098 (0.212)	Prec@5 0.488 (0.684)
+Epoch: [0][70/1252]	Time 0.313 (0.490)	Speed 3269.005 (2090.415)	Loss 6.9136075974 (6.9671)	Prec@1 0.098 (0.195)	Prec@5 0.391 (0.642)
+Epoch: [0][80/1252]	Time 0.312 (0.468)	Speed 3279.884 (2189.678)	Loss 6.9323797226 (6.9628)	Prec@1 0.293 (0.208)	Prec@5 0.488 (0.623)
+Epoch: [0][90/1252]	Time 0.313 (0.450)	Speed 3273.658 (2273.316)	Loss 6.9069242477 (6.9566)	Prec@1 0.000 (0.184)	Prec@5 0.684 (0.629)
+/opt/conda/lib/python3.6/site-packages/PIL/TiffImagePlugin.py:754: UserWarning: Possibly corrupt EXIF data.  Expecting to read 2555904 bytes but only got 0. Skipping tag 0
+  " Skipping tag %s" % (size, len(data), tag))
+Epoch: [0][100/1252]	Time 0.312 (0.437)	Speed 3278.815 (2345.236)	Loss 6.9062547684 (6.9516)	Prec@1 0.098 (0.176)	Prec@5 0.781 (0.645)
+Epoch: [0][110/1252]	Time 0.312 (0.425)	Speed 3279.059 (2407.567)	Loss 6.8992767334 (6.9468)	Prec@1 0.195 (0.178)	Prec@5 0.586 (0.639)
+Epoch: [0][120/1252]	Time 0.312 (0.416)	Speed 3277.488 (2462.023)	Loss 6.9088253975 (6.9436)	Prec@1 0.195 (0.179)	Prec@5 0.586 (0.635)
+/opt/conda/lib/python3.6/site-packages/PIL/TiffImagePlugin.py:771: UserWarning: Corrupt EXIF data.  Expecting to read 4 bytes but only got 0.
+  warnings.warn(str(msg))
+Epoch: [0][130/1252]	Time 0.312 (0.408)	Speed 3280.455 (2510.197)	Loss 6.8887896538 (6.9394)	Prec@1 0.195 (0.180)	Prec@5 0.781 (0.646)
+Epoch: [0][140/1252]	Time 0.314 (0.401)	Speed 3263.837 (2552.293)	Loss 6.8911132812 (6.9360)	Prec@1 0.098 (0.174)	Prec@5 0.781 (0.656)
+Epoch: [0][150/1252]	Time 0.312 (0.395)	Speed 3278.994 (2590.568)	Loss 6.8952064514 (6.9332)	Prec@1 0.195 (0.176)	Prec@5 1.172 (0.690)
+Epoch: [0][160/1252]	Time 0.312 (0.390)	Speed 3281.633 (2625.119)	Loss 6.8886437416 (6.9305)	Prec@1 0.293 (0.183)	Prec@5 1.074 (0.714)
+Epoch: [0][170/1252]	Time 0.313 (0.386)	Speed 3273.601 (2656.069)	Loss 6.8942837715 (6.9283)	Prec@1 0.195 (0.184)	Prec@5 1.367 (0.753)
+Epoch: [0][180/1252]	Time 0.313 (0.382)	Speed 3266.575 (2683.937)	Loss 6.9020357132 (6.9269)	Prec@1 0.098 (0.179)	Prec@5 0.586 (0.743)
+Epoch: [0][190/1252]	Time 0.312 (0.378)	Speed 3278.146 (2709.789)	Loss 6.9262208939 (6.9268)	Prec@1 0.391 (0.190)	Prec@5 1.367 (0.776)
+Epoch: [0][200/1252]	Time 0.312 (0.375)	Speed 3277.494 (2733.462)	Loss 6.8800272942 (6.9245)	Prec@1 0.391 (0.200)	Prec@5 0.879 (0.781)
+Epoch: [0][210/1252]	Time 0.313 (0.372)	Speed 3269.862 (2754.983)	Loss 6.8602857590 (6.9214)	Prec@1 0.488 (0.214)	Prec@5 1.172 (0.800)
+/opt/conda/lib/python3.6/site-packages/PIL/TiffImagePlugin.py:754: UserWarning: Possibly corrupt EXIF data.  Expecting to read 2555904 bytes but only got 0. Skipping tag 0
+  " Skipping tag %s" % (size, len(data), tag))
+Epoch: [0][220/1252]	Time 0.317 (0.369)	Speed 3230.130 (2773.528)	Loss 6.8710269928 (6.9191)	Prec@1 0.293 (0.218)	Prec@5 1.270 (0.821)
+Epoch: [0][230/1252]	Time 0.312 (0.367)	Speed 3279.291 (2792.251)	Loss 6.8557062149 (6.9164)	Prec@1 0.195 (0.217)	Prec@5 0.586 (0.811)
+Epoch: [0][240/1252]	Time 0.312 (0.364)	Speed 3280.533 (2809.676)	Loss 6.8511872292 (6.9137)	Prec@1 0.195 (0.216)	Prec@5 1.855 (0.854)
+Epoch: [0][250/1252]	Time 0.312 (0.362)	Speed 3278.392 (2825.837)	Loss 6.8801999092 (6.9123)	Prec@1 0.293 (0.219)	Prec@5 0.977 (0.859)
+Epoch: [0][260/1252]	Time 0.312 (0.360)	Speed 3278.678 (2840.928)	Loss 6.8333911896 (6.9093)	Prec@1 0.684 (0.237)	Prec@5 2.246 (0.913)
+Epoch: [0][270/1252]	Time 0.312 (0.359)	Speed 3281.718 (2855.132)	Loss 6.7927308083 (6.9050)	Prec@1 0.293 (0.239)	Prec@5 1.953 (0.951)
+Epoch: [0][280/1252]	Time 0.312 (0.357)	Speed 3281.863 (2868.452)	Loss 6.8133382797 (6.9017)	Prec@1 0.098 (0.234)	Prec@5 1.367 (0.966)
+Epoch: [0][290/1252]	Time 0.312 (0.355)	Speed 3281.250 (2880.950)	Loss 6.7931919098 (6.8980)	Prec@1 0.586 (0.246)	Prec@5 1.660 (0.990)
+Epoch: [0][300/1252]	Time 0.312 (0.354)	Speed 3281.759 (2892.727)	Loss 6.7920575142 (6.8944)	Prec@1 0.098 (0.241)	Prec@5 2.051 (1.025)
+Epoch: [0][310/1252]	Time 0.314 (0.353)	Speed 3262.887 (2903.352)	Loss 6.7828669548 (6.8908)	Prec@1 0.879 (0.261)	Prec@5 2.246 (1.065)
+Epoch: [0][320/1252]	Time 0.312 (0.351)	Speed 3282.774 (2913.876)	Loss 6.7347383499 (6.8860)	Prec@1 0.684 (0.275)	Prec@5 2.344 (1.105)
+Epoch: [0][330/1252]	Time 0.312 (0.350)	Speed 3282.317 (2923.822)	Loss 6.7153391838 (6.8808)	Prec@1 0.977 (0.296)	Prec@5 2.832 (1.157)
+Epoch: [0][340/1252]	Time 0.314 (0.349)	Speed 3258.182 (2932.673)	Loss 6.6691789627 (6.8746)	Prec@1 0.586 (0.304)	Prec@5 2.832 (1.206)
+Epoch: [0][350/1252]	Time 0.313 (0.348)	Speed 3275.798 (2941.476)	Loss 6.6649751663 (6.8686)	Prec@1 0.879 (0.321)	Prec@5 3.027 (1.258)
+Epoch: [0][360/1252]	Time 0.312 (0.347)	Speed 3282.368 (2949.987)	Loss 6.6268758774 (6.8619)	Prec@1 0.879 (0.336)	Prec@5 3.027 (1.308)
+Epoch: [0][370/1252]	Time 0.313 (0.346)	Speed 3273.894 (2957.896)	Loss 6.5900011063 (6.8545)	Prec@1 0.586 (0.343)	Prec@5 2.930 (1.351)
+Epoch: [0][380/1252]	Time 0.312 (0.345)	Speed 3283.504 (2965.635)	Loss 6.6166315079 (6.8483)	Prec@1 1.660 (0.378)	Prec@5 4.297 (1.429)
+Epoch: [0][390/1252]	Time 0.315 (0.345)	Speed 3253.656 (2972.382)	Loss 6.6253767014 (6.8425)	Prec@1 1.172 (0.398)	Prec@5 3.223 (1.475)
+/opt/conda/lib/python3.6/site-packages/PIL/TiffImagePlugin.py:754: UserWarning: Possibly corrupt EXIF data.  Expecting to read 2555904 bytes but only got 0. Skipping tag 0
+  " Skipping tag %s" % (size, len(data), tag))
+Epoch: [0][400/1252]	Time 0.317 (0.344)	Speed 3229.452 (2978.309)	Loss 6.4909682274 (6.8338)	Prec@1 1.367 (0.422)	Prec@5 3.809 (1.533)
+/opt/conda/lib/python3.6/site-packages/PIL/TiffImagePlugin.py:754: UserWarning: Possibly corrupt EXIF data.  Expecting to read 1835008 bytes but only got 0. Skipping tag 0
+  " Skipping tag %s" % (size, len(data), tag))
+Epoch: [0][410/1252]	Time 0.312 (0.343)	Speed 3283.523 (2985.076)	Loss 6.4609274864 (6.8247)	Prec@1 0.977 (0.436)	Prec@5 4.688 (1.610)
+Epoch: [0][420/1252]	Time 0.313 (0.342)	Speed 3274.241 (2991.366)	Loss 6.4908046722 (6.8167)	Prec@1 0.977 (0.449)	Prec@5 4.297 (1.674)
+Epoch: [0][430/1252]	Time 0.313 (0.342)	Speed 3276.066 (2997.424)	Loss 6.5165381432 (6.8097)	Prec@1 1.270 (0.468)	Prec@5 3.613 (1.719)
+Epoch: [0][440/1252]	Time 0.312 (0.341)	Speed 3283.166 (3003.365)	Loss 6.4513254166 (6.8016)	Prec@1 1.465 (0.491)	Prec@5 4.883 (1.791)
+Epoch: [0][450/1252]	Time 0.312 (0.340)	Speed 3283.154 (3009.063)	Loss 6.4852857590 (6.7946)	Prec@1 0.391 (0.488)	Prec@5 3.516 (1.829)
+Epoch: [0][460/1252]	Time 0.313 (0.340)	Speed 3272.034 (3014.330)	Loss 6.4235563278 (6.7865)	Prec@1 1.465 (0.510)	Prec@5 5.273 (1.904)
+Epoch: [0][470/1252]	Time 0.313 (0.339)	Speed 3270.405 (3019.360)	Loss 6.3139247894 (6.7764)	Prec@1 1.758 (0.536)	Prec@5 4.785 (1.966)
+Epoch: [0][480/1252]	Time 0.313 (0.339)	Speed 3269.461 (3024.180)	Loss 6.3604578972 (6.7678)	Prec@1 1.465 (0.555)	Prec@5 5.273 (2.035)
+Epoch: [0][490/1252]	Time 0.312 (0.338)	Speed 3282.056 (3029.037)	Loss 6.3914957047 (6.7601)	Prec@1 1.270 (0.570)	Prec@5 4.590 (2.087)
+Epoch: [0][500/1252]	Time 0.313 (0.338)	Speed 3266.630 (3033.449)	Loss 6.3528318405 (6.7519)	Prec@1 1.270 (0.584)	Prec@5 5.078 (2.146)
+/opt/conda/lib/python3.6/site-packages/PIL/TiffImagePlugin.py:754: UserWarning: Possibly corrupt EXIF data.  Expecting to read 2555904 bytes but only got 0. Skipping tag 0
+  " Skipping tag %s" % (size, len(data), tag))
+Epoch: [0][510/1252]	Time 0.312 (0.337)	Speed 3279.705 (3037.922)	Loss 6.3654909134 (6.7444)	Prec@1 0.879 (0.590)	Prec@5 4.980 (2.202)
+/opt/conda/lib/python3.6/site-packages/PIL/TiffImagePlugin.py:754: UserWarning: Possibly corrupt EXIF data.  Expecting to read 19660800 bytes but only got 0. Skipping tag 0
+  " Skipping tag %s" % (size, len(data), tag))
+/opt/conda/lib/python3.6/site-packages/PIL/TiffImagePlugin.py:754: UserWarning: Possibly corrupt EXIF data.  Expecting to read 18481152 bytes but only got 0. Skipping tag 0
+  " Skipping tag %s" % (size, len(data), tag))
+/opt/conda/lib/python3.6/site-packages/PIL/TiffImagePlugin.py:754: UserWarning: Possibly corrupt EXIF data.  Expecting to read 37093376 bytes but only got 0. Skipping tag 0
+  " Skipping tag %s" % (size, len(data), tag))
+/opt/conda/lib/python3.6/site-packages/PIL/TiffImagePlugin.py:754: UserWarning: Possibly corrupt EXIF data.  Expecting to read 39976960 bytes but only got 0. Skipping tag 0
+  " Skipping tag %s" % (size, len(data), tag))
+/opt/conda/lib/python3.6/site-packages/PIL/TiffImagePlugin.py:754: UserWarning: Possibly corrupt EXIF data.  Expecting to read 34865152 bytes but only got 0. Skipping tag 0
+  " Skipping tag %s" % (size, len(data), tag))
+/opt/conda/lib/python3.6/site-packages/PIL/TiffImagePlugin.py:771: UserWarning: Corrupt EXIF data.  Expecting to read 12 bytes but only got 10.
+  warnings.warn(str(msg))
+Epoch: [0][520/1252]	Time 0.312 (0.337)	Speed 3279.168 (3042.226)	Loss 6.2824316025 (6.7355)	Prec@1 1.758 (0.612)	Prec@5 5.371 (2.263)
+Epoch: [0][530/1252]	Time 0.312 (0.336)	Speed 3280.635 (3046.403)	Loss 6.2669487000 (6.7266)	Prec@1 1.562 (0.630)	Prec@5 6.934 (2.351)
+Epoch: [0][540/1252]	Time 0.313 (0.336)	Speed 3270.602 (3050.275)	Loss 6.3084163666 (6.7189)	Prec@1 1.660 (0.649)	Prec@5 5.859 (2.416)
+Epoch: [0][550/1252]	Time 0.314 (0.335)	Speed 3262.342 (3053.885)	Loss 6.1675786972 (6.7089)	Prec@1 1.758 (0.669)	Prec@5 6.543 (2.491)
+Epoch: [0][560/1252]	Time 0.312 (0.335)	Speed 3281.111 (3057.666)	Loss 6.2337079048 (6.7004)	Prec@1 1.855 (0.691)	Prec@5 5.664 (2.548)
+Epoch: [0][570/1252]	Time 0.312 (0.334)	Speed 3281.215 (3061.325)	Loss 6.0533900261 (6.6890)	Prec@1 2.734 (0.726)	Prec@5 7.422 (2.633)
+Epoch: [0][580/1252]	Time 0.312 (0.334)	Speed 3280.703 (3064.859)	Loss 6.1238555908 (6.6793)	Prec@1 2.441 (0.756)	Prec@5 7.324 (2.714)
+Epoch: [0][590/1252]	Time 0.312 (0.334)	Speed 3280.576 (3068.278)	Loss 6.0859718323 (6.6692)	Prec@1 2.441 (0.785)	Prec@5 7.422 (2.794)
+Epoch: [0][600/1252]	Time 0.312 (0.333)	Speed 3281.475 (3071.604)	Loss 6.0399971008 (6.6587)	Prec@1 2.344 (0.811)	Prec@5 8.301 (2.886)
+Epoch: [0][610/1252]	Time 0.313 (0.333)	Speed 3272.510 (3074.699)	Loss 6.0467500687 (6.6487)	Prec@1 3.223 (0.850)	Prec@5 9.570 (2.995)
+Epoch: [0][620/1252]	Time 0.312 (0.333)	Speed 3279.676 (3077.801)	Loss 6.0456500053 (6.6390)	Prec@1 2.930 (0.884)	Prec@5 7.520 (3.068)
+Epoch: [0][630/1252]	Time 0.315 (0.332)	Speed 3250.441 (3080.398)	Loss 5.9762530327 (6.6285)	Prec@1 2.246 (0.905)	Prec@5 8.301 (3.151)
+Epoch: [0][640/1252]	Time 0.314 (0.332)	Speed 3265.787 (3083.133)	Loss 5.9536910057 (6.6179)	Prec@1 3.125 (0.940)	Prec@5 9.961 (3.258)
+Epoch: [0][650/1252]	Time 0.312 (0.332)	Speed 3279.538 (3085.976)	Loss 5.9551591873 (6.6077)	Prec@1 2.637 (0.966)	Prec@5 9.277 (3.350)
+Epoch: [0][660/1252]	Time 0.313 (0.332)	Speed 3274.166 (3088.666)	Loss 5.9046325684 (6.5971)	Prec@1 3.125 (0.999)	Prec@5 9.180 (3.439)
+Epoch: [0][670/1252]	Time 0.313 (0.331)	Speed 3275.130 (3091.293)	Loss 5.9956941605 (6.5881)	Prec@1 3.027 (1.029)	Prec@5 9.961 (3.536)
+Epoch: [0][680/1252]	Time 0.312 (0.331)	Speed 3280.645 (3093.919)	Loss 5.7942194939 (6.5764)	Prec@1 3.125 (1.060)	Prec@5 10.449 (3.638)
+Epoch: [0][690/1252]	Time 0.313 (0.331)	Speed 3271.490 (3096.355)	Loss 5.7890658379 (6.5650)	Prec@1 3.711 (1.098)	Prec@5 10.840 (3.742)
+Epoch: [0][700/1252]	Time 0.312 (0.330)	Speed 3280.195 (3098.836)	Loss 5.9572911263 (6.5563)	Prec@1 3.516 (1.133)	Prec@5 10.352 (3.836)
+Epoch: [0][710/1252]	Time 0.312 (0.330)	Speed 3281.330 (3101.265)	Loss 5.7671833038 (6.5452)	Prec@1 3.027 (1.159)	Prec@5 9.473 (3.916)
+Epoch: [0][720/1252]	Time 0.312 (0.330)	Speed 3281.254 (3103.630)	Loss 5.8368477821 (6.5354)	Prec@1 2.832 (1.183)	Prec@5 11.719 (4.024)
+Epoch: [0][730/1252]	Time 0.312 (0.330)	Speed 3279.428 (3105.910)	Loss 5.8427381516 (6.5259)	Prec@1 4.102 (1.223)	Prec@5 11.621 (4.128)
+Epoch: [0][740/1252]	Time 0.314 (0.329)	Speed 3261.316 (3107.912)	Loss 5.8205919266 (6.5164)	Prec@1 4.004 (1.260)	Prec@5 11.035 (4.222)
+Epoch: [0][750/1252]	Time 0.312 (0.329)	Speed 3279.904 (3110.086)	Loss 5.7443079948 (6.5061)	Prec@1 4.297 (1.301)	Prec@5 12.500 (4.332)
+Epoch: [0][760/1252]	Time 0.312 (0.329)	Speed 3280.052 (3112.208)	Loss 5.7235631943 (6.4958)	Prec@1 4.297 (1.340)	Prec@5 12.695 (4.442)
+Epoch: [0][770/1252]	Time 0.312 (0.329)	Speed 3280.269 (3114.280)	Loss 5.6935195923 (6.4854)	Prec@1 4.199 (1.377)	Prec@5 11.426 (4.533)
+Epoch: [0][780/1252]	Time 0.314 (0.329)	Speed 3261.442 (3116.083)	Loss 5.7415161133 (6.4758)	Prec@1 4.102 (1.412)	Prec@5 11.133 (4.617)
+Epoch: [0][790/1252]	Time 0.312 (0.328)	Speed 3279.914 (3118.054)	Loss 5.7220435143 (6.4663)	Prec@1 3.906 (1.444)	Prec@5 12.109 (4.712)
+Epoch: [0][800/1252]	Time 0.313 (0.328)	Speed 3274.058 (3119.913)	Loss 5.7671451569 (6.4575)	Prec@1 4.102 (1.477)	Prec@5 11.719 (4.800)
+Epoch: [0][810/1252]	Time 0.313 (0.328)	Speed 3269.622 (3121.677)	Loss 5.7138805389 (6.4484)	Prec@1 3.711 (1.505)	Prec@5 12.207 (4.891)
+Epoch: [0][820/1252]	Time 0.312 (0.328)	Speed 3279.914 (3123.515)	Loss 5.7350788116 (6.4397)	Prec@1 4.199 (1.537)	Prec@5 11.719 (4.975)
+Epoch: [0][830/1252]	Time 0.313 (0.328)	Speed 3271.566 (3125.219)	Loss 5.6636352539 (6.4303)	Prec@1 5.273 (1.583)	Prec@5 13.574 (5.078)
+Epoch: [0][840/1252]	Time 0.312 (0.327)	Speed 3279.051 (3126.965)	Loss 5.6282792091 (6.4208)	Prec@1 5.078 (1.624)	Prec@5 14.062 (5.185)
+Epoch: [0][850/1252]	Time 0.312 (0.327)	Speed 3278.931 (3128.671)	Loss 5.7296099663 (6.4126)	Prec@1 4.004 (1.652)	Prec@5 11.914 (5.264)
+Epoch: [0][860/1252]	Time 0.314 (0.327)	Speed 3256.328 (3130.098)	Loss 5.6418571472 (6.4037)	Prec@1 5.566 (1.698)	Prec@5 12.695 (5.351)
+Epoch: [0][870/1252]	Time 0.313 (0.327)	Speed 3267.706 (3131.614)	Loss 5.5851154327 (6.3943)	Prec@1 3.613 (1.720)	Prec@5 11.426 (5.420)
+Epoch: [0][880/1252]	Time 0.312 (0.327)	Speed 3279.212 (3133.216)	Loss 5.5179004669 (6.3843)	Prec@1 4.395 (1.750)	Prec@5 15.234 (5.532)
+Epoch: [0][890/1252]	Time 0.314 (0.327)	Speed 3264.312 (3134.631)	Loss 5.5682535172 (6.3751)	Prec@1 4.492 (1.781)	Prec@5 14.648 (5.634)
+Epoch: [0][900/1252]	Time 0.313 (0.327)	Speed 3267.442 (3136.047)	Loss 5.5065312386 (6.3655)	Prec@1 4.492 (1.811)	Prec@5 15.625 (5.745)
+Epoch: [0][910/1252]	Time 0.314 (0.326)	Speed 3265.618 (3137.415)	Loss 5.5368680954 (6.3564)	Prec@1 5.176 (1.848)	Prec@5 14.551 (5.842)
+Epoch: [0][920/1252]	Time 0.313 (0.326)	Speed 3271.625 (3138.815)	Loss 5.5105094910 (6.3472)	Prec@1 5.273 (1.885)	Prec@5 15.918 (5.952)
+Epoch: [0][930/1252]	Time 0.313 (0.326)	Speed 3273.133 (3140.200)	Loss 5.5054106712 (6.3381)	Prec@1 4.590 (1.914)	Prec@5 15.820 (6.058)
+Epoch: [0][940/1252]	Time 0.313 (0.326)	Speed 3268.283 (3141.510)	Loss 5.4350361824 (6.3285)	Prec@1 6.152 (1.959)	Prec@5 16.309 (6.167)
+Epoch: [0][950/1252]	Time 0.312 (0.326)	Speed 3278.474 (3142.892)	Loss 5.4173336029 (6.3189)	Prec@1 4.688 (1.988)	Prec@5 16.504 (6.276)
+Epoch: [0][960/1252]	Time 0.315 (0.326)	Speed 3245.802 (3143.930)	Loss 5.3812522888 (6.3092)	Prec@1 6.152 (2.031)	Prec@5 16.699 (6.384)
+Epoch: [0][970/1252]	Time 0.312 (0.326)	Speed 3279.801 (3145.274)	Loss 5.3935136795 (6.2997)	Prec@1 5.859 (2.071)	Prec@5 17.285 (6.497)
+Epoch: [0][980/1252]	Time 0.312 (0.325)	Speed 3277.111 (3146.565)	Loss 5.3633112907 (6.2902)	Prec@1 6.250 (2.114)	Prec@5 18.262 (6.617)
+Epoch: [0][990/1252]	Time 0.312 (0.325)	Speed 3278.776 (3147.848)	Loss 5.3511409760 (6.2807)	Prec@1 6.152 (2.154)	Prec@5 16.309 (6.715)
+Epoch: [0][1000/1252]	Time 0.314 (0.325)	Speed 3262.636 (3148.955)	Loss 5.3482232094 (6.2714)	Prec@1 6.348 (2.196)	Prec@5 17.969 (6.827)
+Epoch: [0][1010/1252]	Time 0.313 (0.325)	Speed 3273.325 (3150.140)	Loss 5.3012447357 (6.2618)	Prec@1 6.348 (2.237)	Prec@5 18.848 (6.946)
+Epoch: [0][1020/1252]	Time 0.312 (0.325)	Speed 3276.956 (3151.336)	Loss 5.3201251030 (6.2525)	Prec@1 7.129 (2.285)	Prec@5 20.410 (7.078)
+Epoch: [0][1030/1252]	Time 0.313 (0.325)	Speed 3272.252 (3152.467)	Loss 5.3833765984 (6.2441)	Prec@1 6.055 (2.322)	Prec@5 17.188 (7.176)
+Epoch: [0][1040/1252]	Time 0.312 (0.325)	Speed 3277.944 (3153.628)	Loss 5.3969893456 (6.2359)	Prec@1 6.543 (2.363)	Prec@5 17.969 (7.280)
+Epoch: [0][1050/1252]	Time 0.312 (0.325)	Speed 3278.667 (3154.774)	Loss 5.2871446609 (6.2269)	Prec@1 7.129 (2.408)	Prec@5 19.043 (7.392)
+Epoch: [0][1060/1252]	Time 0.315 (0.325)	Speed 3246.217 (3155.612)	Loss 5.3321228027 (6.2185)	Prec@1 6.641 (2.448)	Prec@5 15.918 (7.473)
+Epoch: [0][1070/1252]	Time 0.312 (0.324)	Speed 3278.035 (3156.714)	Loss 5.3123989105 (6.2100)	Prec@1 6.445 (2.485)	Prec@5 17.969 (7.571)
+Epoch: [0][1080/1252]	Time 0.312 (0.324)	Speed 3279.016 (3157.805)	Loss 5.2253298759 (6.2009)	Prec@1 7.129 (2.528)	Prec@5 20.898 (7.694)
+Epoch: [0][1090/1252]	Time 0.312 (0.324)	Speed 3278.054 (3158.868)	Loss 5.3099575043 (6.1927)	Prec@1 5.762 (2.558)	Prec@5 18.848 (7.796)
+Epoch: [0][1100/1252]	Time 0.312 (0.324)	Speed 3278.867 (3159.919)	Loss 5.3179368973 (6.1847)	Prec@1 6.738 (2.596)	Prec@5 19.238 (7.900)
+Epoch: [0][1110/1252]	Time 0.312 (0.324)	Speed 3277.747 (3160.943)	Loss 5.2315812111 (6.1762)	Prec@1 8.203 (2.646)	Prec@5 20.215 (8.011)
+Epoch: [0][1120/1252]	Time 0.313 (0.324)	Speed 3270.241 (3161.886)	Loss 5.1339607239 (6.1669)	Prec@1 8.691 (2.700)	Prec@5 22.754 (8.143)
+Epoch: [0][1130/1252]	Time 0.312 (0.324)	Speed 3278.111 (3162.879)	Loss 5.1415214539 (6.1578)	Prec@1 8.887 (2.755)	Prec@5 22.754 (8.272)
+Epoch: [0][1140/1252]	Time 0.312 (0.324)	Speed 3278.103 (3163.854)	Loss 5.1661901474 (6.1491)	Prec@1 6.934 (2.792)	Prec@5 22.266 (8.395)
+Epoch: [0][1150/1252]	Time 0.312 (0.324)	Speed 3277.757 (3164.811)	Loss 5.0834980011 (6.1398)	Prec@1 8.203 (2.839)	Prec@5 24.219 (8.533)
+Epoch: [0][1160/1252]	Time 0.317 (0.323)	Speed 3232.602 (3165.383)	Loss 5.1048088074 (6.1309)	Prec@1 8.594 (2.888)	Prec@5 21.191 (8.642)
+Epoch: [0][1170/1252]	Time 0.313 (0.323)	Speed 3270.398 (3166.252)	Loss 5.2075872421 (6.1230)	Prec@1 8.984 (2.941)	Prec@5 21.680 (8.753)
+Epoch: [0][1180/1252]	Time 0.312 (0.323)	Speed 3276.826 (3167.157)	Loss 4.9721703529 (6.1132)	Prec@1 10.254 (3.003)	Prec@5 23.242 (8.876)
+Epoch: [0][1190/1252]	Time 0.313 (0.323)	Speed 3273.245 (3168.020)	Loss 5.2131700516 (6.1057)	Prec@1 7.715 (3.042)	Prec@5 21.777 (8.984)
+Epoch: [0][1200/1252]	Time 0.315 (0.323)	Speed 3248.026 (3168.671)	Loss 5.1467142105 (6.0977)	Prec@1 7.031 (3.075)	Prec@5 19.727 (9.074)
+Epoch: [0][1210/1252]	Time 0.313 (0.323)	Speed 3269.888 (3169.482)	Loss 5.1218996048 (6.0896)	Prec@1 8.008 (3.116)	Prec@5 22.363 (9.184)
+Epoch: [0][1220/1252]	Time 0.314 (0.323)	Speed 3262.814 (3170.225)	Loss 5.1643505096 (6.0820)	Prec@1 8.496 (3.160)	Prec@5 21.875 (9.288)
+Epoch: [0][1230/1252]	Time 0.315 (0.323)	Speed 3254.406 (3170.892)	Loss 5.1057462692 (6.0741)	Prec@1 9.180 (3.209)	Prec@5 22.266 (9.393)
+Epoch: [0][1240/1252]	Time 0.314 (0.323)	Speed 3260.886 (3171.598)	Loss 5.0987730026 (6.0662)	Prec@1 8.301 (3.250)	Prec@5 21.973 (9.495)
+Epoch: [0][1250/1252]	Time 0.313 (0.323)	Speed 3273.182 (3172.385)	Loss 4.9275674820 (6.0571)	Prec@1 10.547 (3.309)	Prec@5 25.879 (9.626)
+Test: [10/49]	Time 0.107 (0.541)	Speed 9550.208 (1893.469)	Loss 5.3721 (5.3184)	Prec@1 6.836 (6.602)	Prec@5 18.457 (18.379)
+Test: [20/49]	Time 0.886 (0.465)	Speed 1156.074 (2203.592)	Loss 5.3264 (5.3094)	Prec@1 6.152 (6.680)	Prec@5 18.066 (18.794)
+Test: [30/49]	Time 0.143 (0.421)	Speed 7137.817 (2433.147)	Loss 5.2442 (5.3049)	Prec@1 6.836 (6.725)	Prec@5 18.848 (18.910)
+Test: [40/49]	Time 0.862 (0.416)	Speed 1187.817 (2463.493)	Loss 5.2721 (5.3032)	Prec@1 7.324 (6.790)	Prec@5 19.336 (18.916)
+ * Prec@1 6.806 Prec@5 18.942
+ * Prec@1 6.806 Prec@5 18.942
+ * Prec@1 6.806 Prec@5 18.942
+ * Prec@1 6.806 Prec@5 18.942

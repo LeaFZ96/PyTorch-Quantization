@@ -1,0 +1,52 @@
+# apex:
+=> creating model 'resnet50'
+Selected optimization level O0:  Pure FP32 training.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O0
+cast_model_type        : torch.float32
+patch_torch_functions  : False
+keep_batchnorm_fp32    : None
+master_weights         : False
+loss_scale             : 1.0
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O0
+cast_model_type        : torch.float32
+patch_torch_functions  : False
+keep_batchnorm_fp32    : None
+master_weights         : False
+loss_scale             : 1.0
+7.992007992007993e-06
+1.1988011988011989e-05
+1.5984015984015985e-05
+1.998001998001998e-05
+2.3976023976023978e-05
+2.7972027972027976e-05
+3.196803196803197e-05
+3.5964035964035965e-05
+3.996003996003996e-05
+4.395604395604396e-05
+Epoch: [0][10/5005]	Time 1.546 (1.546)	Speed 165.597 (165.597)	Loss 7.1072325706 (7.1072)	Prec@1 0.391 (0.391)	Prec@5 0.391 (0.391)
+4.7952047952047956e-05
+5.194805194805195e-05
+5.594405594405595e-05
+5.994005994005994e-05
+6.393606393606394e-05
+6.793206793206794e-05
+7.192807192807193e-05
+7.592407592407593e-05
+7.992007992007992e-05
+8.391608391608392e-05
+Epoch: [0][20/5005]	Time 0.682 (1.114)	Speed 375.587 (229.852)	Loss 6.9880208969 (7.0476)	Prec@1 0.000 (0.195)	Prec@5 0.781 (0.586)
+8.791208791208792e-05
+9.190809190809192e-05
+9.590409590409591e-05
+9.99000999000999e-05
+
+# torch:
+=> creating model 'resnet50'
+0.1
+Epoch: [0][   0/5005]	Time  9.711 ( 9.711)	Data  1.754 ( 1.754)	Loss 7.0015e+00 (7.0015e+00)	Acc@1   0.78 (  0.78)	Acc@5   1.17 (  1.17)

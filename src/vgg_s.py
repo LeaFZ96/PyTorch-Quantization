@@ -54,8 +54,6 @@ for epoch in range(10):  # loop over the dataset multiple times
         # get the inputs; data is a list of [inputs, labels]
         inputs, labels = data[0].cuda(), data[1].cuda()
 
-        print("input size: ", inputs.size())
-
         # zero the parameter gradients
         time_1 = time.time()
         optimizer.zero_grad()

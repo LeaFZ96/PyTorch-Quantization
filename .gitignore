@@ -5,3 +5,7 @@ imagenet_src/model_best.pth.tar
 imagenet_src/checkpoint.pth.tar
 mixed_precision/checkpoint.pth.tar
 mixed_precision/model_best.pth.tar
+mixed_precision/train
+mixed_precision/val
+mixed_precision/data
+imagenet_src/data

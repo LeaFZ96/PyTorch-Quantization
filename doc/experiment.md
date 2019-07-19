@@ -394,17 +394,117 @@ $$
 speedup = \frac{3172.385}{1450.651} = 2.187
 $$
 
-The distributed training used `apex.parallel.DistributedDataParallel` rather than `torch.nn.parallel.DistributedDataparallel`. It seems that the speedup of parallelism of `apex` is much better than `torch.nn.` . The speedup roughly equals the number of GPU. It's amazing!
+The distributed training used `apex.parallel.DistributedDataParallel` rather than `torch.nn.parallel.DistributedDataparallel`. It seems that the speedup of parallelism of `apex` is much better than `torch.nn.`. The speedup roughly equals the number of GPU. It's amazing!
 
-The preformance of training is not as good as the fomal one, because the apex uses the strategy of warm up for adjusting learning rate. The learning rate for apex start from a very small value rather than 0.1 in torch official example.
+The performance of training in the first epoch is not as good as the fomal one, because the apex uses the strategy of warm up for adjusting learning rate. The learning rate for apex start from a very small value rather than 0.1 in torch official example.
 
-## Test Speed
+Regardless of the performance of the first epoch, **the speedup of 4 GPUs with mixed precision to single GPU without mixed precision roughly equals 8!** And in the following part, we can see that the accuracy of apex models is also better than the original torch models.
+
+## Performance Test
+
+In this section, I will test the speed of convergence between apex and torch original example. The deferences between the two models are the learning rate and the use of mixed precision.
+
+To get the result in a short time, CIFAR10 is selected to be the training set. Run the each model for 50 epochs and plot the result to see the performance directly.
+
+### Run torch
+
+Modified the source file of torch imagenet example `main.py` to `main_cifar.py`
+
+**Single GPU**
+
+```bash
+$ python main_cifar.py -a resnet50 --epochs 50 --gpu 0 ./
+```
+
+Results in `log/speed/resnet_s_cifar.log`
+
+**Distributed (4 GPUs)**
+
+```bash
+$ python main_cifar.py -a resnet50 --epochs 50 --batch-size 256 --dist-url 'tcp://127.0.0.1:2345' --dist-backend 'nccl' --multiprocessing-distributed --world-size 1 --rank 0 ./
+```
+
+Results in `log/speed/resnet_d_cifar.log`
 
 ### Run apex
 
-50 epoch
+Modified the source file of apex example `main_amp.py` to `main_amp_cifar.py`
+
+#### `--opt-level O1`
+
+**Single GPU**
 
 ```bash
-sudo nvidia-docker run -d --ipc=host -v /home:/workspace nvcr.io/nvidia/pytorch:19.06-py3 bash -c "cd leafz/PyTorch-Learning/mixed_precision && python -u -m torch.distributed.launch --nproc_per_node=4 main_amp.py -a resnet50 --b 256 --epochs 50 --workers 4 --opt-level O3 --keep-batchnorm-fp32 True ./"
+$ python main_amp_cifar.py -a resnet50 --b 256 --epochs 50 --workers 4 --opt-level O1 ./
 ```
+
+Results in `log/speed/mixed_resnet_s_O1_cifar.log` 
+
+**Distributed (4 GPUs)**
+
+```bash
+$ python -m torch.distributed.launch --nproc_per_node=4 main_amp_cifar.py -a resnet50 --b 256 --epochs 50 --workers 4 --opt-level O1 ./
+```
+
+Results in `log/speed/mixed_resnet_d_O1_cifar.log`
+
+#### `--opt-level O2`
+
+**Single GPU**
+
+```bash
+$ python main_amp_cifar.py -a resnet50 --b 256 --epochs 50 --workers 4 --opt-level O2 ./
+```
+
+Results in `log/speed/mixed_resnet_s_O2_cifar.log`
+
+**Distributed (4 GPUs)**
+
+```bash
+$ python -m torch.distributed.launch --nproc_per_node=4 main_amp_cifar.py -a resnet50 --b 256 --epochs 50 --workers 4 --opt-level O2 ./
+```
+
+Results in `log/speed/mixed_resnet_d_O2_cifar.log`
+
+#### `--opt-level O3` & `--keep-batchnorm-fp32 True`
+
+**Single GPU**
+
+```bash
+$ python main_amp_cifar.py -a resnet50 --b 256 --epochs 50 --workers 4 --opt-level O3 --keep-batchnorm-fp32 True ./
+```
+
+Results in `log/speed/mixed_resnet_s_O3_cifar.log`
+
+**Distributed (4 GPUs)**
+
+```bash
+$ python -m torch.distributed.launch --nproc_per_node=4 main_amp_cifar.py -a resnet50 --b 256 --epochs 50 --workers 4 --opt-level O3 --keep-batchnorm-fp32 True ./
+```
+
+Results in `log/speed/mixed_resnet_d_O3_cifar.log`
+
+### Result Analyze
+
+#### Single GPU
+
+Plot the result of accuracy versus epoch:
+
+![Figure_1](img/Figure_1.png)
+
+The first figure shows the performance of single GPU. We can see that the apex model converges faster than the original torch model on single GPU. This may be because apex model's strategy of adjusting learning rate is better than the original torch model, which is quite simple. And the result after convergence is also better than the original torch model.
+
+The defference between three options of apex is quite small. And the convergence speed of single original torch model is a little faster than distributed, but they reach the roughly same accuracy after convergence.
+
+#### Multiple GPUs
+
+![Figure_2](img/Figure_2.png)
+
+We can see that there is nearly no difference between the three options of apex. They all reached a ok accuracy versus the best result I found on the internet, which model is resnet50 and the accuracy is 93.1% in 200 epochs on CIFAR10.
+
+#### Single GPU vs. Multiple GPUs
+
+![Figure_3](img/Figure_3-3570939.png)
+
+From this figure, we can see that the apex models perform better than original torch models. The apex models' speed and the finial accuracy both better than the original torch models'.
 

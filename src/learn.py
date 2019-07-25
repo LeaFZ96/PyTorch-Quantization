@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+from collections import OrderedDict
 
 class Net(nn.Module):
 
@@ -38,6 +39,14 @@ target = target.view(1, -1)
 criterion = nn.MSELoss()
 
 net.zero_grad()     # zeroes the gradient buffers of all parameters
+
+state_dict = net.state_dict()
+state_dict_quant = OrderedDict()
+for k, v in state_dict.items():
+    print("k: ", k, " v: ", v.type())
+    temp = v.char()
+    print(temp.type())
+    state_dict_quant[k] = temp.float()
 
 optimizer = optim.SGD(net.parameters(), lr=0.01)
 

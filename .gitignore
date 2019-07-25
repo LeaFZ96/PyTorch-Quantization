@@ -9,3 +9,7 @@ mixed_precision/train
 mixed_precision/val
 mixed_precision/data
 imagenet_src/data
+quantization/model_best.pth.tar
+quantization/checkpoint.pth.tar
+quantization/__pycache__
+src/__pycache__

@@ -2,16 +2,12 @@ import torch
 import math
 
 def linear_quantize(input, bits):
+    
+    range1 = input.max() - input.min()
+    temp = (input - input.min()) / range1
+    range2 = math.pow(2.0, bits) - 1
+    min_v = - math.pow(2.0, bits - 1)
+    ret = (temp.float() * range2) + min_v
+    ret = ret.int().float()
 
-    """assert bits >= bits, bits
-    if bits == 1:
-        return torch.sign(input) - 1
-    bound = math.pow(2.0, bits - 1)
-    min_val = - bound
-    max_val = bound - 1
-    rounded = input // 1
-    result = torch.clamp(rounded, min_val, max_val)"""
-    temp = input * 127
-    temp = temp.char()
-    result = temp.half()
-    return result
+    return ret

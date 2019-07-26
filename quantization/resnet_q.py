@@ -453,8 +453,7 @@ def validate_q(val_loader, model, criterion):
     state_dict_quant = OrderedDict()
 
     for k, v in state.items():
-        # print("key: ", k, " value: ", v.size())
-            
+        # print("key: ", k, " value: ", v.size(), " type: ", v.type())
         v_quant = v
         """
         if 'features' in k:     # conv layer
@@ -468,23 +467,29 @@ def validate_q(val_loader, model, criterion):
         """if 'running' in k:
             state_dict_quant[k] = v
             continue"""
-        v_quant = quant.linear_quantize(v, args.linear_bits)
+        if v.nelement() != 0:
+            v_quant = quant.linear_quantize(v, args.linear_bits)
         
+        """if i == 0 and torch.cuda.current_device() == 0:
+            v_quant = quant.linear_quantize(v, args.linear_bits)
+            print("new: ", v_quant[0][0][0])
+            i = i + 1"""
         state_dict_quant[k] = v_quant
     
     model_q.load_state_dict(state_dict_quant)
 
+    end = time.time()
+
     # switch to evaluate mode
     model_q.eval()
-
-    end = time.time()
 
     prefetcher = data_prefetcher(val_loader)
     input, target = prefetcher.next()
     i = 0
     while input is not None:
-        input = input.char().half()
         i += 1
+        input = input.int().float()
+        #input = quant.linear_quantize(input, args.linear_bits)
 
         # compute output
         with torch.no_grad():

@@ -508,3 +508,11 @@ We can see that there is nearly no difference between the three options of apex.
 
 From this figure, we can see that the apex models perform better than original torch models. The apex models' speed and the finial accuracy both better than the original torch models'.
 
+### Something wrong
+
+![Figure_3](img/Figure_3-4179968.png)
+
+In the last section, the result of the original torch's `DistributedDataParallel` is not accurate. This is because the torch's model set one process using four GPUs as default and the apex's model set one GPU per process. After setting one GPU per process for torch's model, we can get the above result. We can see that the performance of orginal torch's model and apex's model are really close.
+
+The details in `speed/mix_resnet_d_O1_torch.log`.
+

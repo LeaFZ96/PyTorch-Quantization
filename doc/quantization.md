@@ -110,3 +110,20 @@ I plot the result of float, half, 4-bit int, 8-bit int and 16-bit int:
 ![Figure_1](img/Figure_1-4178983.png)
 
 We can see that the accuracy of int are quite low. And the differences between several int are very small. I think the decimal should not influence so much.
+
+## Solve the problem
+
+It seems that the design of the quantization is not resonable.
+
+
+
+```bash
+$ python resnet_q.py -a resnet50 --b 256 --epochs 50 --workers 4 --opt-level O2 --conv-bits 8 --linear-bits 8 --input-bits 8 ./
+```
+
+
+
+```bash
+$ python resnet_q.py -a resnet50 --b 256 --epochs 50 --workers 4 --opt-level O2 --conv-bits 4 --linear-bits 4 --input-bits 8 ./
+```
+

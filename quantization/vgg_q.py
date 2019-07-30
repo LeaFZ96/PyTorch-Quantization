@@ -48,8 +48,6 @@ parser.add_argument('--conv-bits', default=8, type=int, metavar='N',
                     help='number of bits for conv layers')
 parser.add_argument('--linear-bits', default=4, type=int, metavar='N',
                     help='number of bits for linear layers')
-parser.add_argument('--input-bits', default=8, type=int, metavar='N',
-                    help='number of bits for inputs')
 parser.add_argument('--epochs', default=90, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
@@ -455,7 +453,7 @@ def validate_q(val_loader, model, criterion):
     state_dict_quant = OrderedDict()
 
     for k, v in state.items():
-        # print("key: ", k, " value: ", v.size(), " type: ", v.type())
+        print("key: ", k, " value: ", v.size(), " type: ", v.type())
         v_quant = v
         """
         if 'features' in k:     # conv layer
@@ -472,6 +470,10 @@ def validate_q(val_loader, model, criterion):
         if v.nelement() != 0:
             v_quant = quant.linear_quantize(v, args.linear_bits)
         
+        """if i == 0 and torch.cuda.current_device() == 0:
+            v_quant = quant.linear_quantize(v, args.linear_bits)
+            print("new: ", v_quant[0][0][0])
+            i = i + 1"""
         state_dict_quant[k] = v_quant
     
     model_q.load_state_dict(state_dict_quant)
@@ -483,10 +485,12 @@ def validate_q(val_loader, model, criterion):
 
     prefetcher = data_prefetcher(val_loader)
     input, target = prefetcher.next()
+    print(target.size())
+    print(target[0])
     i = 0
     while input is not None:
         i += 1
-        input = quant.linear_quantize(input, args.input_bits)
+        input = input.float()
         #input = quant.linear_quantize(input, args.linear_bits)
 
         # compute output
@@ -530,7 +534,6 @@ def validate_q(val_loader, model, criterion):
 
     print(' * Prec@1 {top1.avg:.3f} Prec@5 {top5.avg:.3f}'
           .format(top1=top1, top5=top5))
-
 
     return top1.avg
 
@@ -583,7 +586,6 @@ def accuracy(output, target, topk=(1,)):
     """Computes the precision@k for the specified values of k"""
     maxk = max(topk)
     batch_size = target.size(0)
-
     _, pred = output.topk(maxk, 1, True, True)
     pred = pred.t()
     correct = pred.eq(target.view(1, -1).expand_as(pred))

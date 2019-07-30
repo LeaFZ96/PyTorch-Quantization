@@ -1,35 +1,4 @@
 => creating model 'resnet50'
-^CTraceback (most recent call last):
-  File "resnet_q.py", line 605, in <module>
-    main()
-  File "resnet_q.py", line 144, in main
-    model = models.__dict__[args.arch]()
-  File "/opt/conda/lib/python3.6/site-packages/torchvision/models/resnet.py", line 185, in resnet50
-    model = ResNet(Bottleneck, [3, 4, 6, 3], **kwargs)
-  File "/opt/conda/lib/python3.6/site-packages/torchvision/models/resnet.py", line 109, in __init__
-    self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
-  File "/opt/conda/lib/python3.6/site-packages/torchvision/models/resnet.py", line 133, in _make_layer
-    layers.append(block(self.inplanes, planes))
-  File "/opt/conda/lib/python3.6/site-packages/torchvision/models/resnet.py", line 65, in __init__
-    padding=1, bias=False)
-  File "/opt/conda/lib/python3.6/site-packages/torch/nn/modules/conv.py", line 327, in __init__
-    False, _pair(0), groups, bias, padding_mode)
-  File "/opt/conda/lib/python3.6/site-packages/torch/nn/modules/conv.py", line 45, in __init__
-    self.reset_parameters()
-  File "/opt/conda/lib/python3.6/site-packages/torch/nn/modules/conv.py", line 48, in reset_parameters
-    init.kaiming_uniform_(self.weight, a=math.sqrt(5))
-  File "/opt/conda/lib/python3.6/site-packages/torch/nn/init.py", line 328, in kaiming_uniform_
-    return tensor.uniform_(-bound, bound)
-KeyboardInterrupt
-root@7e56c682e9d4:/workspace/leafz/PyTorch-Learning/quantization# export CUDA_VISIBLE_DEVICES=3
-root@7e56c682e9d4:/workspace/leafz/PyTorch-Learning/quantization# python resnet_q.py -a resnet50 --b 256 --epochs 50 --workers 4 --opt-level O2 --conv-bits 4 --linear-bits 4 --input-bits 8 ./
-opt_level = O2
-keep_batchnorm_fp32 = None <class 'NoneType'>
-loss_scale = None <class 'NoneType'>
-
-CUDNN VERSION: 7600
-
-=> creating model 'resnet50'
 Selected optimization level O2:  FP16 training with FP32 batchnorm and FP32 master weights.
 
 Defaults for this optimization level are:

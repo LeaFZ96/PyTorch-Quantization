@@ -19,6 +19,7 @@ import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 import torchvision.models as models
 import torchvision
+from torch.utils.tensorboard import SummaryWriter
 
 import numpy as np
 
@@ -29,6 +30,9 @@ try:
     from apex.multi_tensor_apply import multi_tensor_applier
 except ImportError:
     raise ImportError("Please install apex from https://www.github.com/nvidia/apex to run this example.")
+
+writer = SummaryWriter()
+global_step = 0
 
 model_names = sorted(name for name in models.__dict__
                      if name.islower() and not name.startswith("__")
@@ -275,14 +279,19 @@ def main():
         return
 
     for epoch in range(args.start_epoch, args.epochs):
+        global_step = epoch
         if args.distributed:
             train_sampler.set_epoch(epoch)
 
         # train for one epoch
         train(train_loader, model, criterion, optimizer, epoch)
 
+        write_log(model, epoch)
+
         # evaluate on validation set
         prec1 = validate_q(val_loader, model, criterion)
+
+        writer.flush()
 
         # remember best prec@1 and save checkpoint
         if args.local_rank == 0:
@@ -444,66 +453,14 @@ def train(train_loader, model, criterion, optimizer, epoch):
             torch.cuda.cudart().cudaProfilerStop()
             quit()
 
-def validate(val_loader, model, criterion):
-    batch_time = AverageMeter()
-    losses = AverageMeter()
-    top1 = AverageMeter()
-    top5 = AverageMeter()
+    writer.add_scalar('Loss/train', losses.avg, epoch)
+    writer.add_scalar('Top1/train', top1.avg, epoch)
+    writer.add_scalar('Top5/train', top5.avg, epoch)
 
-    # switch to evaluate mode
-    model.eval()
-
-    end = time.time()
-
-    prefetcher = data_prefetcher(val_loader)
-    input, target = prefetcher.next()
-    i = 0
-    while input is not None:
-        i += 1
-
-        # compute output
-        with torch.no_grad():
-            output = model(input)
-            loss = criterion(output, target)
-
-        # measure accuracy and record loss
-        prec1, prec5 = accuracy(output.data, target, topk=(1, 5))
-
-        if args.distributed:
-            reduced_loss = reduce_tensor(loss.data)
-            prec1 = reduce_tensor(prec1)
-            prec5 = reduce_tensor(prec5)
-        else:
-            reduced_loss = loss.data
-
-        losses.update(to_python_float(reduced_loss), input.size(0))
-        top1.update(to_python_float(prec1), input.size(0))
-        top5.update(to_python_float(prec5), input.size(0))
-
-        # measure elapsed time
-        batch_time.update(time.time() - end)
-        end = time.time()
-
-        # TODO:  Change timings to mirror train().
-        if args.local_rank == 0 and i % args.print_freq == 0:
-            print('Test: [{0}/{1}]\t'
-                  'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
-                  'Speed {2:.3f} ({3:.3f})\t'
-                  'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
-                  'Prec@1 {top1.val:.3f} ({top1.avg:.3f})\t'
-                  'Prec@5 {top5.val:.3f} ({top5.avg:.3f})'.format(
-                   i, len(val_loader),
-                   args.world_size * args.batch_size / batch_time.val,
-                   args.world_size * args.batch_size / batch_time.avg,
-                   batch_time=batch_time, loss=losses,
-                   top1=top1, top5=top5))
-
-        input, target = prefetcher.next()
-
-    print(' * Prec@1 {top1.avg:.3f} Prec@5 {top5.avg:.3f}'
-          .format(top1=top1, top5=top5))
-
-    return top1.avg
+def write_log(model, epoch):
+    state = model.state_dict()
+    for k, v in state.items():
+        writer.add_histogram(k, v, epoch)
 
 def validate_q(val_loader, model, criterion):
     batch_time = AverageMeter()
@@ -592,6 +549,9 @@ def validate_q(val_loader, model, criterion):
     print(' * Prec@1 {top1.avg:.3f} Prec@5 {top5.avg:.3f}'
           .format(top1=top1, top5=top5))
 
+    writer.add_scalar('Loss/val', losses.avg, global_step)
+    writer.add_scalar('Top1/val', top1.avg, global_step)
+    writer.add_scalar('Top5/val', top5.avg, global_step)
 
     return top1.avg
 

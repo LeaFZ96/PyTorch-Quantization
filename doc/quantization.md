@@ -190,7 +190,7 @@ Details in `log/quantization/resnet_int_4_4_4.log`
 
 Plot the result of the same length:
 
-![Figure_1](img/Figure_1-4505781.png)
+![Figure_1](img/Figure_1-4505781-4952252.png)
 
 From the figure, we can see that there is tiny difference between the result which the length longer than 4-bit. And once the length down to the 4 bit, the accuracy fell very clearly.
 
@@ -270,7 +270,7 @@ From the tensorboard, we can find the variation of the weight's histogram of eac
 
 ![image-20190731180011887](img/image-20190731180011887.png)
 
-![image-20190731180024871](img/image-20190731180024871.png)
+![image-20190731180024871](img/image-20190731180024871-4952838.png)
 
 And after training, the most of weight's value tend to be in a smaller range. According to this range, we can decide the certain bit-width of quantization of each layer. Therefore, we can reduce the size of the model as much as possible with minimal impact on the performance.
 
